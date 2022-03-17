@@ -6369,9 +6369,10 @@ read.junctions = function(rafile,
             ln = readLines(ra.path)
             if (is.na(skip)){
                 ## nh = min(c(Inf, which(!grepl('^((#)|(chrom1))', ln))))-1
+                ## check whether each line is a "valid" bedpe data line
                 nh = min(c(Inf, which(!grepl('^(chr)*[0-9XY]+[ \t][0-9]+[ \t][0-9]+.*', ln))))
                 if (is.infinite(nh)){
-                    nh = 1
+                    nh = 0
                 }
             } else{
                 nh = skip
