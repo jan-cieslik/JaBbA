@@ -6368,7 +6368,8 @@ read.junctions = function(rafile,
 
             ln = readLines(ra.path)
             if (is.na(skip)){
-                nh = min(c(Inf, which(!grepl('^((#)|(chrom1))', ln))))-1
+                ## nh = min(c(Inf, which(!grepl('^((#)|(chrom1))', ln))))-1
+                nh = min(c(Inf, which(!grepl('^(chr)*[0-9XY]+[ \t][0-9]+[ \t][0-9]+.*', ln))))
                 if (is.infinite(nh)){
                     nh = 1
                 }
@@ -6409,11 +6410,24 @@ read.junctions = function(rafile,
             setnames(rafile, seq_along(cols), cols)
             rafile[, str1 := ifelse(str1 %in% c('+', '-'), str1, '*')]
             rafile[, str2 := ifelse(str2 %in% c('+', '-'), str2, '*')]
+            
+            
+            ## columns must be recast as numeric vectors
+            rafile[, ":="(
+                start1 = as.numeric(as.character(start1)),
+                end1 = as.numeric(as.character(end1)),
+                start2 = as.numeric(as.character(start2)),
+                end2 = as.numeric(as.character(end2))
+            )]
             ## converting bedpe to 1-based coordinates for verify.junctions()
             rafile[, `:=`(
                 end1 = ifelse(start1==end1-1, start1, end1),
                 end2 = ifelse(start2==end2-1, start2, end2)
             )]
+            
+            ## any thing that is not stranded fails some downstream checks
+            rafile = rafile[str1 %in% c('+', '-') & str2 %in% c('+', '-'),]
+            
         } else if (grepl('(vcf$)|(vcf.gz$)', rafile)){
 
           if (!is.null(seqlengths) && all(!is.na(seqlengths)))
