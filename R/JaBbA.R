@@ -5789,9 +5789,12 @@ write.tab = function(x, ..., sep = "\t", quote = F, row.names = F)
 {   
     if (!is.data.frame(x))
         x = as.data.frame(x)
+    
     print("DEBUG write.tab ....")
     print("x")
     print(head(x))
+    print("x post")
+    x <- apply(x,2,as.character)
     print("names")
     print(names(list(...)))
     print("content")
