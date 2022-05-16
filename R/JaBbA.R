@@ -5771,7 +5771,9 @@ gr.tile.map = function(query, subject, mc.cores = 1, verbose = FALSE)
 ##################################
 vaggregate = function(...)
 {
-    out = aggregate.formula(...);
+    print("DEBUG vaggregate()")
+    print(cat(...))
+    out = aggregate(...);
     return(structure(out[,ncol(out)], names = do.call(paste, lapply(names(out)[1:(ncol(out)-1)], function(x) out[,x]))))
 }
 
