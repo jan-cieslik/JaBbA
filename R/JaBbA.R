@@ -5779,10 +5779,13 @@ vaggregate = function(...)
 #' @rdname internal
 #' @noRd
 write.tab = function(x, ..., sep = "\t", quote = F, row.names = F)
-{
+{   
     if (!is.data.frame(x))
         x = as.data.frame(x)
-
+    print("DEBUG write.tab ....")
+    print(x)
+    print(cat(...))
+    print("DEBUG write.tab .... END")
     write.table(x, ..., sep = sep, quote = quote, row.names = row.names)
 }
 
