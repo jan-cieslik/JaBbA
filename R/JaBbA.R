@@ -1512,6 +1512,7 @@ jabba_stub = function(junctions, # path to junction VCF file, dRanger txt file o
         names(ra1) = paste('bp1_', names(ra1), sep = '')
         names(ra2) = paste('bp2_', names(ra2), sep = '')
         junc.txt = as.data.frame(values(kag$junctions))
+        print(paste0("DEBUG: junctions.txt.file: ", junctions.txt.file))
         write.tab(cbind(ra1, ra2, junc.txt), junctions.txt.file)
     }
     else
