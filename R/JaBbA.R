@@ -5790,9 +5790,10 @@ write.tab = function(x, ..., sep = "\t", quote = F, row.names = F)
         x = as.data.frame(x)
     print("DEBUG write.tab ....")
     print(x)
+    print(names(list(...)))
     print(cat(...))
-    print("DEBUG write.tab .... END")
     write.table(x, ..., sep = sep, quote = quote, row.names = row.names)
+    print("DEBUG write.tab .... END")
 }
 
 
